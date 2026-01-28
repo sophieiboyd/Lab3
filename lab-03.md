@@ -94,7 +94,23 @@ nobel_living_science_born_us %>%
 
 ### Exercise 5
 
-…
+``` r
+ggplot(data = nobel_living_science_born_us, aes(x = country_us,
+                                                fill = born_country_us)) +
+  geom_bar() +
+labs(x = "Location of Scholars When Awarded",
+       y = "Number of Nobel Prizes",
+     fill = "Birth Country"
+     ) +
+facet_wrap(~ category, nrow = 4) 
+```
+
+![](lab-03_files/figure-gfm/bar-plot-2-1.png)<!-- -->
+
+The plots again seem to support the claims in the the Buzzfeed article.
+Most of the US-based Nobel laureates were born in the US, but there are
+still sizable groups of Nobel laureates who were awarded in the US but
+not born in the US.
 
 ### Exercise 6
 
