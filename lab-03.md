@@ -42,11 +42,35 @@ Down to 228 observations after filtering for laureates who are still
 alive, have available information on country, and who are people (not
 organizations)
 
+``` r
+nobel_living <- nobel_living %>%
+  mutate(
+    country_us = if_else(country == "USA", "USA", "Other")
+  )
+```
+
+``` r
+nobel_living_science <- nobel_living %>%
+  filter(category %in% c("Physics", "Medicine", "Chemistry", "Economics"))
+```
+
 ### Exercise 3
 
-Remove this text, and add your answer for Exercise 1 here. Add code
-chunks as needed. Don’t forget to label your code chunk. Do not use
-spaces in code chunk labels.
+``` r
+ggplot(data = nobel_living_science, aes(x = country_us)) +
+  geom_bar() +
+labs(x = "Location of Scholars When Awarded",
+       y = "Number of Nobel Prizes",
+     ) +
+facet_wrap(~ category, nrow = 4)
+```
+
+![](lab-03_files/figure-gfm/bar-plot-1.png)<!-- -->
+
+The plots seem to support the claim in the Buzzfeed article. In each
+category, there is a higher number of Nobel prizes awarded to scholars
+in the US than in other countries. The difference is especially stark
+for prizes in economics.
 
 ### Exercise 4
 
