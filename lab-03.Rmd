@@ -97,4 +97,11 @@ The plots again seem to support the claims in the the Buzzfeed article. Most of 
 
 ### Exercise 6
 
-...
+```{r birth-country}
+nobel_living_science_born_us %>%
+  filter(country == "USA") %>%
+  filter(born_country != "USA") %>%
+  count(born_country, sort = TRUE)
+```
+
+Germany and the United Kingdom are the most common birth countries. 

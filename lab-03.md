@@ -114,4 +114,26 @@ not born in the US.
 
 ### Exercise 6
 
-…
+``` r
+nobel_living_science_born_us %>%
+  filter(country == "USA") %>%
+  filter(born_country != "USA") %>%
+  count(born_country, sort = TRUE)
+```
+
+    ## # A tibble: 21 × 2
+    ##    born_country       n
+    ##    <chr>          <int>
+    ##  1 Germany            7
+    ##  2 United Kingdom     7
+    ##  3 China              5
+    ##  4 Canada             4
+    ##  5 Japan              3
+    ##  6 Australia          2
+    ##  7 Israel             2
+    ##  8 Norway             2
+    ##  9 Austria            1
+    ## 10 Finland            1
+    ## # ℹ 11 more rows
+
+Germany and the United Kingdom are the most common birth countries.
