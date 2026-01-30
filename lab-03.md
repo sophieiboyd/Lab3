@@ -35,12 +35,12 @@ nobel_living <- nobel_copy %>% filter(
   gender != "org"
   )
 
-View(nobel_living)
+view(nobel_living)
 ```
 
-Down to 228 observations after filtering for laureates who are still
-alive, have available information on country, and who are people (not
-organizations)
+The new dataset contains 228 observations after filtering for laureates
+who are still alive, have available information on ‘country’, and who
+are people (not organizations).
 
 ``` r
 nobel_living <- nobel_living %>%
@@ -62,25 +62,26 @@ ggplot(data = nobel_living_science, aes(x = country_us)) +
 labs(x = "Location of Scholars When Awarded",
        y = "Number of Nobel Prizes",
      ) +
-facet_wrap(~ category, nrow = 4)
+facet_wrap(~ category, nrow = 4) +
+  coord_flip()
 ```
 
 ![](lab-03_files/figure-gfm/bar-plot-1.png)<!-- -->
 
-The plots seem to support the claim in the Buzzfeed article. In each
-category, there is a higher number of Nobel prizes awarded to scholars
-in the US than in other countries. The difference is especially stark
-for prizes in economics.
+The plots support the claim in the Buzzfeed article. In each category,
+there is a higher number of Nobel prizes awarded to scholars in the US
+than in other countries. The difference is especially stark for prizes
+in economics.
 
 ### Exercise 4
 
 ``` r
-nobel_living_science_born_us <- nobel_living_science %>%
+nobel_living_science <- nobel_living_science %>%
   mutate(
     born_country_us = if_else(born_country == "USA", "USA", "Other")
   )
 
-nobel_living_science_born_us %>%
+nobel_living_science %>%
   count(born_country_us, sort = TRUE)
 ```
 
@@ -95,14 +96,15 @@ nobel_living_science_born_us %>%
 ### Exercise 5
 
 ``` r
-ggplot(data = nobel_living_science_born_us, aes(x = country_us,
+ggplot(data = nobel_living_science, aes(x = country_us,
                                                 fill = born_country_us)) +
   geom_bar() +
 labs(x = "Location of Scholars When Awarded",
        y = "Number of Nobel Prizes",
      fill = "Birth Country"
      ) +
-facet_wrap(~ category, nrow = 4) 
+facet_wrap(~ category, nrow = 4) +
+coord_flip()
 ```
 
 ![](lab-03_files/figure-gfm/bar-plot-2-1.png)<!-- -->
@@ -110,12 +112,12 @@ facet_wrap(~ category, nrow = 4)
 The plots again seem to support the claims in the the Buzzfeed article.
 Most of the US-based Nobel laureates were born in the US, but there are
 still sizable groups of Nobel laureates who were awarded in the US but
-not born in the US.
+were born in other countries.
 
 ### Exercise 6
 
 ``` r
-nobel_living_science_born_us %>%
+nobel_living_science %>%
   filter(country == "USA") %>%
   filter(born_country != "USA") %>%
   count(born_country, sort = TRUE)
